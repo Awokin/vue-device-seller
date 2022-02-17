@@ -1,11 +1,11 @@
 import axios from "axios";
-//import { BASE_API_URL } from "../common/Constants";
+import { BASE_API_URL } from "../common/Constants";
 
-const API_URL = "http://localhost:5000" + '/api/user';
+const API_URL = BASE_API_URL + '/api/user';
 
-class RegService {
+class ApplicationService {
 
-    signup(user) {
+    apply(user) {
         return axios.post(API_URL + '/save', user);
     }
 
@@ -15,4 +15,4 @@ class RegService {
 
 }
 
-export default new RegService;
+export default new ApplicationService;

@@ -1,4 +1,4 @@
-export default class Reg {
+export default class Application {
 
     constructor(id, firstname, surname, phone, email, coverLetter, passport, resume) {
         this.id = id;

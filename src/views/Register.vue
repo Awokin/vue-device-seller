@@ -4,11 +4,13 @@
     <div class="card ms-auto me-auto p-3 shadow-lg custom-card">
       <font-awesome-icon icon="user-circle" class="ms-auto me-auto user-icon" />
       <div v-if="errorMessage" class="alert alert-danger">
-        {{errorMessage}}
+        {{ errorMessage }}
       </div>
-      <form @submit.prevent="handleRegister" 
-      novalidate 
-      :class="submitted ? 'was-validated' : ''">
+      <form
+        @submit.prevent="handleRegister"
+        novalidate
+        :class="submitted ? 'was-validated' : ''"
+      >
         <div class="form-group">
           <label for="name">Full Name</label>
           <input
@@ -35,7 +37,7 @@
           />
           <div class="invalid-feedback">Username is required.</div>
         </div>
-         <div class="form-group">
+        <div class="form-group">
           <label for="password">Password</label>
           <input
             v-model="formData.password"
@@ -49,18 +51,18 @@
           <div class="invalid-feedback">Password is required.</div>
         </div>
 
-        <button class="btn btn-success w-100 mt-3"
-                @click="submitted = true"
-                :disabled="loading">
-            Sign Up
-
+        <button
+          class="btn btn-success w-100 mt-3"
+          @click="submitted = true"
+          :disabled="loading"
+        >
+          Sign Up
         </button>
       </form>
 
-        <router-link to="/login" class="btn btn-link" style="color: darkgray;">
-            I have an Account
-        </router-link>
-
+      <router-link to="/login" class="btn btn-link" style="color: darkgray">
+        I have an Account
+      </router-link>
     </div>
   </div>
 </template>
@@ -83,39 +85,36 @@ export default {
   computed: {
     ...vuex.mapGetters(["currentUser"]),
   },
-  mounted() {
-    //this.currentUser?.username = this.currentUser != null && this.currentUser.username != null
-    if (this.currentUser?.username) {
-      this.$router.push("/profile");
-    }
-  },
+  // mounted() {
+  //   //this.currentUser?.username = this.currentUser != null && this.currentUser.username != null
+  //   if (this.currentUser?.username) {
+  //     this.$router.push("/profile");
+  //   }
+  // },
   methods: {
     handleRegister() {
-      if (
-        !this.formData.username ||
-        !this.formData.password ||
-        !this.formData.name
-      ) {
+      if (!this.formData.username || !this.formData.password || !this.formData.name) {
         return;
       }
 
       this.loading = true;
 
-      AuthenticationService.register(this.formData).then(() => {
+      AuthenticationService.register(this.formData)
+        .then(() => {
           this.$router.push("/login");
-        }).catch((err) => {
+        })
+        .catch((err) => {
           console.log(err);
           if (err?.response?.status === 409) {
-            this.errorMessage = 'Username is not valid.';
+            this.errorMessage = "Username is not valid.";
           } else {
-            this.errorMessage = 'Unexpected error occured';
+            this.errorMessage = "Unexpected error occured";
           }
-        }).then(() => this.loading = false);
+        })
+        .then(() => (this.loading = false));
     },
   },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

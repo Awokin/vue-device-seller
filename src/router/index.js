@@ -8,7 +8,9 @@ import Register from '../views/Register';
 import Unauthorized from '../views/Unauthorized';
 import Role from '../models/role';
 import Store from '../store';
-import Reg from'../views/Reg';
+import Application from'../views/Application';
+import Apply from'../views/Apply';
+import ApplicationAdmin from'../views/ApplicationAdmin';
 
 const routes = [
     {
@@ -30,11 +32,20 @@ const routes = [
         path: '/register',
         component: Register,
     },
-    ,
     {
-        name: 'userapp',
-        path: '/userapp',
-        component: Reg,
+        name: 'apply',
+        path: '/apply',
+        component: Application,
+    },
+    {
+        name: 'applyadmin',
+        path: '/applyadmin',
+        component: ApplicationAdmin,
+    },
+    {
+        name: 'applyme',
+        path: '/applyme',
+        component: Apply,
     },
     {
         name: 'profile',

@@ -1,4 +1,4 @@
-import { Router } from 'vue-router';
+import Router from '../router';
 import Store from '../store';
 
 export const authHeader = () => {
