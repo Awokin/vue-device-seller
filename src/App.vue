@@ -14,16 +14,16 @@
         </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/applyadmin" active-class="active">
-            Application Admin
+            Application List
           </router-link>
           <!-- <a href="/home" class="nav-link"> Home </a> -->
         </li>
-                <li class="nav-item">
+        <!-- <li class="nav-item">
           <router-link class="nav-link" to="/applyme" active-class="active">
             Apply
           </router-link>
-          <!-- <a href="/home" class="nav-link"> Home </a> -->
-        </li>
+           <a href="/home" class="nav-link"> Home </a> -->
+
         <li class="nav-item">
           <router-link class="nav-link" to="/home" active-class="active">
             Home
@@ -32,12 +32,6 @@
         </li>
       </div>
       <div class="navbar-nav ms-auto" v-if="!currentUser">
-        <li class="nav-item">
-          <router-link class="nav-link" to="/apply" active-class="active">
-            Application
-          </router-link>
-          <!-- <a href="/register" class="nav-link"> Sign Up </a> -->
-        </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/register" active-class="active">
             Sign Up

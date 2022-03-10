@@ -1,5 +1,4 @@
 <template>
-  <!-- <div>Register</div> -->
   <div class="container mt-5">
     <div class="card ms-auto me-auto p-3 shadow-lg custom-card">
       <font-awesome-icon icon="user-circle" class="ms-auto me-auto user-icon" />
@@ -129,15 +128,6 @@ export default {
       errorMessage: "",
     };
   },
-  // computed: {
-  //   ...vuex.mapGetters(["currentUser"]),
-  // },
-  // mounted() {
-  //   //this.currentUser?.username = this.currentUser != null && this.currentUser.username != null
-  //   if (this.currentUser?.username) {
-  //     this.$router.push("/profile");
-  //   }
-  // },
 
   methods: {
     postApply() {
@@ -158,65 +148,6 @@ export default {
           console.log(e);
         });
     },
-    // onResumeChange(e) {
-    //   var files = e.target.files;
-    //   if (!files.length) return;
-    //   this.resume = files[0];
-    // },
-    // onPassportChange(e) {
-    //   var files = e.target.files;
-    //   if (!files.length) return;
-    //   this.passport = files[0];
-    // },
-    // uploadPassport() {
-    //   const preset = "gk7pdfe7";
-    //   let cloudinaryUrl = "https://api.cloudinary.com/v1_1/gk7pdfe7/upload";
-    //   const fd = new FormData();
-    //   fd.append("upload_preset", preset);
-    //   fd.append("file", this.passport);
-    //   const data = axios.post(cloudinaryUrl, fd);
-    //   console.log(data);
-    //   return data;
-    // },
-    // uploadResume() {
-    //   const preset = "gk7pdfe7";
-    //   let cloudinaryUrl = "https://api.cloudinary.com/v1_1/gk7pdfe7/upload";
-    //   const fd = new FormData();
-    //   fd.append("upload_preset", preset);
-    //   fd.append("file", this.resume);
-    //   const data = axios.post(cloudinaryUrl, fd);
-    //   console.log(data);
-    //   return data;
-    // },
-
-    // handleApply() {
-    //   if (
-    //     !this.firstname ||
-    //     !this.surname ||
-    //     !this.phone ||
-    //     !this.email ||
-    //     !this.coverLetter ||
-    //     !this.resume ||
-    //     !this.passport
-    //   ) {
-    //     return;
-    //   }
-
-    // this.loading = true;
-
-    //   ApplicationService.apply(this.formData)
-    //     .then(() => {
-    //       this.$router.push("/home");
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //       if (err?.response?.status === 409) {
-    //         this.errorMessage = "Username is not valid.";
-    //       } else {
-    //         this.errorMessage = "Unexpected error occured";
-    //       }
-    //     })
-    //     .then(() => (this.loading = false));
   },
 };
 </script>

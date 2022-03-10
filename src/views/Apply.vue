@@ -46,7 +46,7 @@
           />
           <div class="invalid-feedback">Phone Number is required.</div>
         </div>
-        <div class="form-group">
+        <div class="form-group" v-if="fourUsers">
           <label for="email">Email Address</label>
           <input
             v-model="email"
@@ -140,15 +140,6 @@ export default {
       errorMessage: "",
     };
   },
-  // computed: {
-  //   ...vuex.mapGetters(["currentUser"]),
-  // },
-  // mounted() {
-  //   //this.currentUser?.username = this.currentUser != null && this.currentUser.username != null
-  //   if (this.currentUser?.username) {
-  //     this.$router.push("/profile");
-  //   }
-  // },
 
   methods: {
     postApply() {
@@ -169,16 +160,15 @@ export default {
           console.log(e);
         });
     },
-    // onResumeChange(e) {
-    //   var files = e.target.files;
-    //   if (!files.length) return;
-    //   this.resume = files[0];
-    // },
-    // onPassportChange(e) {
-    //   var [file] = e.target.files;
-    //   if (!files.length) return;
-    //   this.passport = file;
-    // },
+
+    fourUsers() {
+      const numberOfApplications = 4;
+
+      if (numberOfApplications == true) {
+        return;
+      }
+    },
+
     selectResume(e) {
       const [file] = e.target.files;
       this.resume = file;
@@ -186,15 +176,11 @@ export default {
     async upload(file_type, event) {
       console.log(event);
       console.log(this.passport);
-      // event.target.innerHTML = "Loading...";
-      // event.target.disabled = true;
 
       if (file_type === "passport") {
         let response = cloudinary(this.passport);
         if (response) {
           response.then((data) => {
-            // event.target.innerHTML = "Upload Image";
-            // event.target.disabled = false;
             this.passport = data.data.url;
             console.log(this.passport);
           });
@@ -210,64 +196,12 @@ export default {
           });
         }
       }
-
-      // this[file_type] = url
     },
 
     selectPassport(e) {
       const [file] = e.target.files;
       this.passport = file;
     },
-
-    // uploadPassport = (file) => {
-    //   const preset = "a8bs3p6w";
-    //   let cloudinaryUrl = "https://api.cloudinary.com/v1_1/a8bs3p6w/upload";
-    //   const fd = new FormData();
-    //   fd.append("upload_preset", preset);
-    //   fd.append("file", file);
-    //   const data = axios.post(cloudinaryUrl, fd);
-    //   console.log(data);
-    //   return data;
-    // },
-    // uploadResume() {
-    //   const preset = "gk7pdfe7";
-    //   let cloudinaryUrl = "https://api.cloudinary.com/v1_1/gk7pdfe7/upload";
-    //   const fd = new FormData();
-    //   fd.append("upload_preset", preset);
-    //   fd.append("file", this.resume);
-    //   const data = axios.post(cloudinaryUrl, fd);
-    //   console.log(data);
-    //   return data;
-    // },
-
-    // handleApply() {
-    //   if (
-    //     !this.firstname ||
-    //     !this.surname ||
-    //     !this.phone ||
-    //     !this.email ||
-    //     !this.coverLetter ||
-    //     !this.resume ||
-    //     !this.passport
-    //   ) {
-    //     return;
-    //   }
-
-    // this.loading = true;
-
-    //   ApplicationService.apply(this.formData)
-    //     .then(() => {
-    //       this.$router.push("/home");
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //       if (err?.response?.status === 409) {
-    //         this.errorMessage = "Username is not valid.";
-    //       } else {
-    //         this.errorMessage = "Unexpected error occured";
-    //       }
-    //     })
-    //     .then(() => (this.loading = false));
   },
 };
 </script>

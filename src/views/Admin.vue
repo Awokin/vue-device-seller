@@ -8,12 +8,7 @@
         <div class="card-header">
           <div class="row">
             <div class="col-6">
-              <h3>All Devices</h3>
-            </div>
-            <div class="col-6 text-end">
-              <button class="btn btn-primary" @click="createDeviceRequest">
-                Create Device
-              </button>
+              <h3>All Applications</h3>
             </div>
           </div>
         </div>
@@ -22,30 +17,28 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">Type</th>
-                <th scope="col">Date</th>
-                <th scope="col">Action</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Surname</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Email Address</th>
+                <th scope="col">Cover Letter</th>
+                <th scope="col">Passport</th>
+                <th scope="col">Resume</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(device, ind) in deviceList" :key="ind">
+              <tr v-for="(application, ind) in applicationList" :key="ind">
                 <th scope="row">{{ ind + 1 }}</th>
-                <td>{{ device.name }}</td>
-                <td>{{ `$ ${device.price}` }}</td>
-                <td>{{ device.deviceType }}</td>
-                <td>{{ new Date(device.createTime).toLocaleDateString() }}</td>
-                <td>
-                  <button class="btn btn-primary me-1" @click="editDeviceRequest(device)">
-                    Edit
-                  </button>
-                  <button
-                    class="btn btn-danger"
-                    @click="deleteDeviceRequest(device, ind)"
-                  >
-                    Delete
-                  </button>
+                <td>{{ application.firstname }}</td>
+                <td>{{ application.surname }}</td>
+                <td>{{ application.phone }}</td>
+                <td>{{ application.email }}</td>
+                <td>{{ application.coverLetter }}</td>
+                <td style="font-size: 10px; word-break: break-all">
+                  {{ application.resume }}
+                </td>
+                <td style="font-size: 10px; word-break: break-all">
+                  {{ application.passport }}
                 </td>
                 <th></th>
               </tr>
@@ -55,82 +48,36 @@
       </div>
     </div>
   </div>
-  <device-modal
-    ref="deviceModal"
-    :selected-device="selectedDevice"
-    @saved="deviceSaved"
-  />
-
-  <device-delete-modal ref="deleteDeviceModal" @confirmed="deleteDevice" />
 </template>
 
 <script>
-import DeviceService from "../services/device.service";
-import DeviceModal from "../components/Device";
-import Device from "../models/device";
-import DeviceDeleteModal from "../components/DeviceDeleteConfirm";
-
+import axios from "axios";
 import { nextTick } from "vue";
 
 export default {
-  name: "admin",
-  components: { DeviceDeleteModal, DeviceModal },
+  name: "applicationAdmin",
   data() {
     return {
-      deviceList: [],
-      selectedDevice: new Device(),
+      applicationList: [],
       errorMessage: "",
       selectedIndex: undefined,
     };
   },
   mounted() {
-    DeviceService.getAllDevices().then((response) => {
-      this.deviceList = response.data;
+    axios.get(`http://localhost:5000/api/users/`).then((response) => {
+      this.applicationList = response.data;
     });
   },
   methods: {
-    createDeviceRequest() {
-      this.selectedDevice = new Device();
-      //this.$refs["deviceModal"].showDeviceModal();
-
-      nextTick(() => {
-        this.$refs["deviceModal"].showDeviceModal();
-      });
-    },
-    editDeviceRequest(device) {
-      this.selectedDevice = Object.assign({}, device);
-      // this.$refs["deviceModal"].showDeviceModal();
-
-      // sure pre-data is ready.
-      nextTick(() => {
-        this.$refs["deviceModal"].showDeviceModal();
-      });
-    },
-    deleteDeviceRequest(device, ind) {
-      this.selectedDevice = device;
-      this.selectedIndex = ind;
-
-      nextTick(() => {
-        this.$refs["deleteDeviceModal"].showDeleteModal();
-      });
-    },
-    deviceSaved(device) {
-      const itemIndex = this.deviceList.findIndex((item) => item.id === device.id);
+    applicationSaved(application) {
+      const itemIndex = this.applicationList.findIndex(
+        (item) => item.id === application.id
+      );
       if (itemIndex !== -1) {
-        this.deviceList[itemIndex] = device;
+        this.applicationList[itemIndex] = application;
       } else {
-        this.deviceList.push(device);
+        this.applicationList.push(application);
       }
-    },
-    deleteDevice() {
-      DeviceService.deleteDevice(this.selectedDevice)
-        .then(() => {
-          this.deviceList.splice(this.selectedIndex, 1);
-        })
-        .catch((err) => {
-          this.errorMessage = "Unexpected error occurred.";
-          console.log(err);
-        });
     },
   },
 };

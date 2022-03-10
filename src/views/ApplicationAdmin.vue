@@ -34,8 +34,12 @@
                 <td>{{ application.phone }}</td>
                 <td>{{ application.email }}</td>
                 <td>{{ application.coverLetter }}</td>
-                <td>{{ application.resume }}</td>
-                <td>{{ application.passport }}</td>
+                <td style="font-size: 10px; word-break: break-all">
+                  {{ application.resume }}
+                </td>
+                <td style="font-size: 10px; word-break: break-all">
+                  {{ application.passport }}
+                </td>
                 <th></th>
               </tr>
             </tbody>
