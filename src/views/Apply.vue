@@ -6,11 +6,7 @@
       <div v-if="errorMessage" class="alert alert-danger">
         {{ errorMessage }}
       </div>
-      <form
-        @submit.prevent="postApply"
-        novalidate
-        :class="submitted ? 'was-validated' : ''"
-      >
+      <form @submit.prevent="postApply">
         <div class="form-group">
           <label for="firstname">First Name</label>
           <input
