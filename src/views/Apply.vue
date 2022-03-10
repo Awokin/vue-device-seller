@@ -6,7 +6,11 @@
       <div v-if="errorMessage" class="alert alert-danger">
         {{ errorMessage }}
       </div>
-      <form @submit.prevent="postApply">
+      <form
+        @submit.prevent="postApply"
+        novalidate
+        :class="submitted ? 'was-validated' : ''"
+      >
         <div class="form-group">
           <label for="firstname">First Name</label>
           <input
@@ -113,7 +117,7 @@
       </form>
 
       <router-link to="/login" class="btn btn-link" style="color: darkgray">
-        We wish the best!
+        We wish you the best!
       </router-link>
     </div>
   </div>
